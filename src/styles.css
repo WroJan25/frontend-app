@@ -1,0 +1,47 @@
+:root{
+  --primary-color: #01012B;
+  --secondary-color: #D1F7FF;
+  --third-color: #05D9E8;
+  --fourth-color: #005678;
+  --fifth-color: #FF2A6D;
+  --error-color: #ff0000;
+
+
+}
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+body{
+  background-color: var(--primary-color);
+}
+
+h2{
+  font-size: 3rem;
+  color: var(--fifth-color);
+  font-family: 'Press Start 2P', cursive;
+}
+p{
+  color: var(--fifth-color);
+  font-family: 'Press Start 2P', cursive;
+}
+label{
+  color: var(--fifth-color);
+  font-family: 'Press Start 2P', cursive;
+  font-size: 0.75rem;
+}
+button{
+  font-family: 'Press Start 2P', cursive;
+  background-color: var(--fourth-color);
+  color: var(--fifth-color);
+}
+button:hover {
+  background-color: var(--secondary-color);
+}
+
+.formError{
+  color: var(--error-color);
+  font-weight: bold;
+}

@@ -1,0 +1,25 @@
+<div class="login-container">
+  <div class="form-section">
+    <h2>Login</h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label for="ea">Email Adress</label>
+      <input id="ea" placeholder="Email" formControlName="email"/>
+      <div *ngIf="submitted&& loginForm.get('email')?.invalid" class="formError">
+        <small *ngIf="loginForm.get('email')?.errors?.['required']">Email is required</small>
+        <small *ngIf="loginForm.get('email')?.errors?.['email']">Email Adress must be in email format</small>
+      </div>
+      <label for="pass">Password</label>
+      <input id="pass" type="password" placeholder="Password" formControlName="password"/>
+      <div *ngIf="submitted && loginForm.get('password')?.invalid" class="formError">
+        <small *ngIf="loginForm.get('password')?.errors?.['required']">Password is required.</small>
+      </div>
+      <a routerLink="/register">Forgot password?</a>
+      <button type="submit">LOG IN</button>
+    </form>
+  </div>
+  <div class="info-section">
+    <h2>Don't have an account yet?</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <button routerLink="/register" class="register-button">Sign Up</button>
+  </div>
+</div>

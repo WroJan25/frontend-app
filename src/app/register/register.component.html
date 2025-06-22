@@ -1,0 +1,71 @@
+<div class="register-container">
+  <div class="form-section">
+    <h2>Sign Up</h2>
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
+      <div class="row">
+        <div>
+          <label for="fn">First Name</label>
+          <input id="fn" placeholder="First Name" formControlName="firstName"/>
+          <div *ngIf="submitted&& registerForm.get('firstName')?.invalid" class="formError">
+            <small *ngIf="registerForm.get('firstName')?.errors?.['required']">First Name is required</small>
+          </div>
+        </div>
+        <div>
+          <label for="ln">Last Name</label>
+          <input id="ln" placeholder="Last Name" formControlName="lastName"/>
+          <div *ngIf="submitted&& registerForm.get('lastName')?.invalid" class="formError">
+            <small *ngIf="registerForm.get('lastName')?.errors?.['required']">Last Name is required</small>
+          </div>
+        </div>
+      </div>
+      <label for="ea">Email Address</label>
+      <input id="ea" placeholder="Email" formControlName="email"/>
+      <div *ngIf="submitted&& registerForm.get('email')?.invalid" class="formError">
+        <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</small>
+        <small *ngIf="registerForm.get('email')?.errors?.['email']">Email Adress must be in email format</small>
+      </div>
+      <label for="un">Username</label>
+      <input id="un" placeholder="Username" formControlName="username"/>
+      <div *ngIf="submitted&& registerForm.get('username')?.invalid" class="formError">
+        <small *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</small>
+      </div>
+      <label for="pass">Password</label>
+      <input id="pass" type="password" placeholder="Password" formControlName="password"/>
+      <div *ngIf="submitted && registerForm.get('password')?.invalid" class="formError">
+        <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</small>
+        <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8
+          characters.</small>
+        <small *ngIf="registerForm.get('password')?.errors?.['pattern']">Password must contain letters, numbers and
+          special characters.</small>
+      </div>
+      <label for="dob">Date of Birth</label>
+      <input id="dob" type="date" formControlName="birthDate"/>
+      <div *ngIf="submitted&& registerForm.get('birthDate')?.invalid" class="formError">
+        <small *ngIf="registerForm.get('birthDate')?.errors?.['required']">Date of Birth is required</small>
+      </div>
+      <div class="row">
+        <div>
+          <input type="checkbox" id="publicProfile" formControlName="isProfilePublic"/>
+          <label for="publicProfile">Make my profile public</label>
+        </div>
+        <div>
+          <input type="checkbox" id="budgetReports" formControlName="sendBudgetReports"/>
+          <label for="budgetReports">Send me monthly budget reports</label>
+        </div>
+      </div>
+      <button type="submit">Register</button>
+    </form>
+
+    <div class="social-buttons">
+      <button (click)="onGoogleClick()" class="google" type="button" >Log in with Google</button>
+      <button class="apple">Log in with Apple</button>
+    </div>
+
+  </div>
+
+  <div class="info-section">
+    <h2>Already have an account?</h2>
+    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+    <button routerLink="/login" class="login-button">LOGIN</button>
+  </div>
+</div>

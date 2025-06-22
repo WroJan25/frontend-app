@@ -1,0 +1,76 @@
+.register-container {
+  display: flex;
+  height: 100vh;
+}
+.form-section,
+.info-section {
+  flex: 1;
+  padding: 3rem;
+  box-sizing: border-box;
+}
+
+.form-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.row {
+  display: flex;
+  gap: 3rem;
+  margin-bottom: 1rem;
+}
+
+input {
+  display: block;
+  width: 100%;
+  margin: 0.5rem 0;
+  padding: 0.75rem;
+  font-size: 1rem;
+  border-radius: 4px;
+}
+.form-section p{
+  font-size: 0.75rem;
+}
+
+button {
+  width: 100%;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  font-size: 1rem;
+  font-weight: bold;
+  border: none;
+  cursor: pointer;
+}
+
+
+.social-buttons {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-buttons button {
+  flex: 1;
+  font-weight: bold;
+}
+
+
+.info-section {
+  background-color: var(--third-color);
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.info-section h2 {
+  margin-bottom: 1rem;
+}
+
+.info-section button {
+  width: auto;
+  padding: 0.5rem 2rem;
+}
+
+

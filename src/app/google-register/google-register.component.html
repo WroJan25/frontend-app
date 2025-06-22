@@ -1,0 +1,30 @@
+<div class="register-container">
+  <div class="form-section">
+    <h2>Almost Ready</h2>
+    <form [formGroup]="googleRegistrationForm" (ngSubmit)="onSubmit()" >
+      <label for="un">Username</label>
+      <input id="un" placeholder="Username" formControlName="username"/>
+      <div *ngIf="submitted&& googleRegistrationForm.get('username')?.invalid" class="formError">
+        <small *ngIf="googleRegistrationForm.get('username')?.errors?.['required']">Username is required</small>
+      </div>
+      <label for="dob">Date of Birth</label>
+      <input id="dob" type="date" formControlName="birthDate"/>
+      <div *ngIf="submitted&& googleRegistrationForm.get('birthDate')?.invalid" class="formError">
+        <small *ngIf="googleRegistrationForm.get('birthDate')?.errors?.['required']">Date of Birth is required</small>
+      </div>
+      <div class="row">
+        <div>
+          <input type="checkbox" id="publicProfile" formControlName="isProfilePublic"/>
+          <label for="publicProfile">Make my profile public</label>
+        </div>
+        <div>
+          <input type="checkbox" id="budgetReports" formControlName="sendBudgetReports"/>
+          <label for="budgetReports">Send me monthly budget reports</label>
+        </div>
+      </div>
+      <button type="submit">Register</button>
+    </form>
+  </div>
+  </div>
+
+
