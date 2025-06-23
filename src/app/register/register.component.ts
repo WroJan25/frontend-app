@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {RouterLink} from '@angular/router';
 import {Router} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
+import {generateCodeChallenge, generateCodeVerifier} from '../util/pcke-builder';
 
 @Component({
   selector: 'app-register',
@@ -15,7 +16,7 @@ import {HttpClient} from '@angular/common/http';
 export class RegisterComponent {
   registerForm: FormGroup;
   submitted = false;
-
+  errorMessage: string | null = null;
   constructor(private fb: FormBuilder, private router: Router, private httpClient: HttpClient) {
     this.registerForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
@@ -32,6 +33,7 @@ export class RegisterComponent {
 
   onSubmit() {
     this.submitted = true;
+    this.errorMessage = null;
     if (this.registerForm.invalid) {
       return;
     }
@@ -58,6 +60,7 @@ export class RegisterComponent {
           },
           error: (error) => {
             console.log(error);
+            this.errorMessage = error?.error?.message || 'An error occurred during registration';
             alert("Error detected")
           }
         })
@@ -66,9 +69,25 @@ export class RegisterComponent {
     }
   }
 
-  onGoogleClick() {
-    window.location.href = 'http://localhost:8080/oauth2/authorization/google';
-    //
+  async onGoogleClick() {
+    const codeVerifier = generateCodeVerifier();
+    const codeChallenge = await generateCodeChallenge(codeVerifier);
+
+    sessionStorage.setItem('code_verifier', codeVerifier);
+
+    const clientId = '85127282828-lnf1sukpijkgrolkrc9ahjc8m0tarvrs.apps.googleusercontent.com';
+    const redirectUri = 'http://localhost:4200/oauth2/callback';
+    const scope = 'openid email profile';
+    const responseType = 'code';
+
+    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
+      `client_id=${clientId}` +
+      `&redirect_uri=${encodeURIComponent(redirectUri)}` +
+      `&response_type=${responseType}` +
+      `&scope=${encodeURIComponent(scope)}` +
+      `&code_challenge=${codeChallenge}` +
+      `&code_challenge_method=S256`;
+    window.location.href = authUrl;
   }
 }
 

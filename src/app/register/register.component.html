@@ -54,6 +54,9 @@
         </div>
       </div>
       <button type="submit">Register</button>
+      <div *ngIf="errorMessage" class="formError">
+        <small>{{ errorMessage }}</small>
+      </div>
     </form>
 
     <div class="social-buttons">

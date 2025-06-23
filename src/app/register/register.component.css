@@ -67,6 +67,11 @@ button {
 .info-section h2 {
   margin-bottom: 1rem;
 }
+.formError {
+  color: red;
+  margin-top: 10px;
+  font-size: 0.9em;
+}
 
 .info-section button {
   width: auto;
