@@ -1,0 +1,54 @@
+.oauth-container {
+  max-width: 400px;
+  margin: 80px auto;
+  padding: 24px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-family: sans-serif;
+  background-color: var(--third-color);
+}
+
+.section {
+  margin-top: 20px;
+}
+
+h2 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  background-color: var(--third-color);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 16px;
+}
+
+label {
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+input {
+  padding: 8px;
+  font-size: 14px;
+}
+
+button {
+  padding: 10px 16px;
+  font-size: 14px;
+  cursor: pointer;
+  margin-top: 12px;
+  align-self: flex-start;
+}
+
+.error {
+  color: red;
+  margin-top: 8px;
+  font-size: 13px;
+}

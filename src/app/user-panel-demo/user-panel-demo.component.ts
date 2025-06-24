@@ -16,7 +16,8 @@ export class UserPanelDemoComponent implements OnInit {
  ngOnInit(): void {
     this.http.get<{ userData: String }>('http://localhost:8080/api/v1/me', { withCredentials: true }).subscribe({
       next: (response) => {
-        this.userData = response.userData;
+        this.userData = response.userData
+        console.log('User data:', this.userData);
         console.log('User data fetched successfully', response);
       },
       error: (err) => {

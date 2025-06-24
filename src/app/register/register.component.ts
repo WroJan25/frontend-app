@@ -1,8 +1,7 @@
 import {Component} from '@angular/core';
-import {FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import {CommonModule} from '@angular/common';
-import {RouterLink} from '@angular/router';
-import {Router} from '@angular/router';
+import {Router, RouterLink} from '@angular/router';
 import {HttpClient} from '@angular/common/http';
 import {generateCodeChallenge, generateCodeVerifier} from '../util/pcke-builder';
 
@@ -17,18 +16,27 @@ export class RegisterComponent {
   registerForm: FormGroup;
   submitted = false;
   errorMessage: string | null = null;
+
   constructor(private fb: FormBuilder, private router: Router, private httpClient: HttpClient) {
     this.registerForm = this.fb.group({
         email: ['', [Validators.required, Validators.email]],
         password: ['', [Validators.required, Validators.minLength(8), Validators.pattern(/^(?=.*[A-Za-z])(?=.*\d)(?=.*[^A-Za-z0-9]).+$/)]],
+        confirmPassword: ['', [Validators.required]],
         username: ['', [Validators.required]],
         firstName: ['', Validators.required],
         lastName: ['', Validators.required],
         birthDate: ['', [Validators.required]],
         isProfilePublic: [false],
         sendBudgetReports: [false]
-      }
+      },
+      {validators: this.passwordsMatchValidator}
     );
+  }
+
+  passwordsMatchValidator(form: FormGroup) {
+    const password = form.get('password')?.value;
+    const confirmPassword = form.get('confirmPassword')?.value;
+    return password === confirmPassword ? null : {'PasswordMismatch': true};
   }
 
   onSubmit() {
@@ -60,8 +68,7 @@ export class RegisterComponent {
           },
           error: (error) => {
             console.log(error);
-            this.errorMessage = error?.error?.message || 'An error occurred during registration';
-            alert("Error detected")
+            this.errorMessage = error?.error?.detail || 'An error occurred during registration';
           }
         })
     } else {
@@ -80,14 +87,13 @@ export class RegisterComponent {
     const scope = 'openid email profile';
     const responseType = 'code';
 
-    const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?` +
+    window.location.href = `https://accounts.google.com/o/oauth2/v2/auth?` +
       `client_id=${clientId}` +
       `&redirect_uri=${encodeURIComponent(redirectUri)}` +
       `&response_type=${responseType}` +
       `&scope=${encodeURIComponent(scope)}` +
       `&code_challenge=${codeChallenge}` +
       `&code_challenge_method=S256`;
-    window.location.href = authUrl;
   }
 }
 

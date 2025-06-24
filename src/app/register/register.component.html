@@ -1,7 +1,7 @@
 <div class="register-container">
   <div class="form-section">
     <h2>Sign Up</h2>
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()" >
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
       <div class="row">
         <div>
           <label for="fn">First Name</label>
@@ -19,24 +19,29 @@
         </div>
       </div>
       <label for="ea">Email Address</label>
-      <input id="ea" placeholder="Email" formControlName="email"/>
+      <input id="ea" placeholder="Email" formControlName="email" autocomplete="email"/>
       <div *ngIf="submitted&& registerForm.get('email')?.invalid" class="formError">
         <small *ngIf="registerForm.get('email')?.errors?.['required']">Email is required</small>
         <small *ngIf="registerForm.get('email')?.errors?.['email']">Email Adress must be in email format</small>
       </div>
       <label for="un">Username</label>
-      <input id="un" placeholder="Username" formControlName="username"/>
+      <input id="un" placeholder="Username" formControlName="username" autocomplete="username"/>
       <div *ngIf="submitted&& registerForm.get('username')?.invalid" class="formError">
         <small *ngIf="registerForm.get('username')?.errors?.['required']">Username is required</small>
       </div>
       <label for="pass">Password</label>
-      <input id="pass" type="password" placeholder="Password" formControlName="password"/>
+      <input id="pass" type="password" placeholder="Password" formControlName="password" autocomplete="new-password"/>
       <div *ngIf="submitted && registerForm.get('password')?.invalid" class="formError">
         <small *ngIf="registerForm.get('password')?.errors?.['required']">Password is required.</small>
         <small *ngIf="registerForm.get('password')?.errors?.['minlength']">Password must be at least 8
           characters.</small>
         <small *ngIf="registerForm.get('password')?.errors?.['pattern']">Password must contain letters, numbers and
           special characters.</small>
+      </div>
+      <label for="confirmPass">Confirm Password</label>
+      <input id="confirmPass" type="password" placeholder="Confirm Password" formControlName="confirmPassword"/>
+      <div *ngIf="submitted && registerForm.errors?.['PasswordMismatch']" class="formError">
+        <small>Passwords do not match</small>
       </div>
       <label for="dob">Date of Birth</label>
       <input id="dob" type="date" formControlName="birthDate"/>
@@ -57,10 +62,11 @@
       <div *ngIf="errorMessage" class="formError">
         <small>{{ errorMessage }}</small>
       </div>
+
     </form>
 
     <div class="social-buttons">
-      <button (click)="onGoogleClick()" class="google" type="button" >Log in with Google</button>
+      <button (click)="onGoogleClick()" class="google" type="button">Log in with Google</button>
       <button class="apple">Log in with Apple</button>
     </div>
 

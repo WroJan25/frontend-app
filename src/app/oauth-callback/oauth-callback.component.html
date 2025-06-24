@@ -1,1 +1,24 @@
-<p>oauth-callback works!</p>
+<div class="oauth-container">
+  <div *ngIf="!linkRequired" class="section loading">
+    <p>Logging in with Google...</p>
+  </div>
+
+  <div *ngIf="linkRequired" class="section link-form">
+    <h2>Link your account with existing profile</h2>
+
+    <form [formGroup]="linkForm" (ngSubmit)="onLinkSubmit()" class="form">
+      <div class="form-group">
+        <label for="password">Profile Password:</label>
+        <input type="password" formControlName="password" id="password" />
+
+        <div *ngIf="linkForm.get('password')?.touched && linkForm.get('password')?.invalid" class="error">
+          Password is required.
+        </div>
+      </div>
+
+      <button type="submit" [disabled]="linkForm.invalid">Link Accounts</button>
+    </form>
+
+    <div *ngIf="linkErrorMessage" class="error">{{ linkErrorMessage }}</div>
+  </div>
+</div>
