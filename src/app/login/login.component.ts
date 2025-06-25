@@ -31,18 +31,12 @@ export class LoginComponent {
     }
 
     if (this.loginForm.valid) {
-
       this.httpClient.post('http://localhost:8080/api/v1/auth/login', this.loginForm.getRawValue(), {withCredentials: true}).subscribe(
         {
-          next: (response) => {
-            console.log("Delivered:", response);
-            alert("Logged In");
+          next: () => {
             this.httpClient.post('http://localhost:8080/api/v1/auth/refresh', {}, {
               withCredentials: true
             }).subscribe({
-              next: (response) => {
-                console.log('Refresh successfully', response);
-              },
               error: (err) => {
                 console.error('Refresh failed', err);
               }
@@ -53,9 +47,6 @@ export class LoginComponent {
             console.log(error);
           }
         })
-
-      alert("Logged In");
-      console.log(this.loginForm.value);
     }
   }
 

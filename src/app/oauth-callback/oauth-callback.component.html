@@ -9,7 +9,7 @@
     <form [formGroup]="linkForm" (ngSubmit)="onLinkSubmit()" class="form">
       <div class="form-group">
         <label for="password">Profile Password:</label>
-        <input type="password" formControlName="password" id="password" />
+        <input type="password" formControlName="password" id="password"/>
 
         <div *ngIf="linkForm.get('password')?.touched && linkForm.get('password')?.invalid" class="error">
           Password is required.

@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
-import { CommonModule } from '@angular/common';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute, Router} from '@angular/router';
+import {FormBuilder, FormGroup, Validators, ReactiveFormsModule} from '@angular/forms';
+import {HttpClient} from '@angular/common/http';
+import {CommonModule} from '@angular/common';
 
 @Component({
   selector: 'app-oauth-callback',
@@ -34,17 +34,15 @@ export class OauthCallbackComponent implements OnInit {
   ngOnInit(): void {
     const code = this.route.snapshot.queryParamMap.get('code');
     const codeVerifier = sessionStorage.getItem('code_verifier');
-
     if (!code || !codeVerifier) {
-      alert('Brakuje kodu weryfikacyjnego');
+      alert('Verification code is missing.');
       this.router.navigate(['/']);
       return;
     }
-
     this.http.post('http://localhost:8080/api/v1/oauth2/code/google', {
       code,
       codeVerifier
-    }, { withCredentials: true }).subscribe({
+    }, {withCredentials: true}).subscribe({
       next: () => this.router.navigate(['/dashboard']),
       error: err => {
         if (err.status === 409 && err.error?.provider && err.error?.providerId && err.error?.userId) {
@@ -53,8 +51,7 @@ export class OauthCallbackComponent implements OnInit {
           this.userId = err.error.userId;
           this.linkRequired = true;
         } else {
-          console.error('Login error', err);
-          alert('Błąd logowania');
+          alert('Login failed. Please try again.');
           this.router.navigate(['/']);
         }
       }
@@ -72,14 +69,14 @@ export class OauthCallbackComponent implements OnInit {
       password: this.linkForm.value.password
     };
 
-    this.http.post('http://localhost:8080/api/v1/oauth2/link', payload, { withCredentials: true }).subscribe({
+    this.http.post('http://localhost:8080/api/v1/oauth2/link', payload, {withCredentials: true}).subscribe({
       next: () => {
         this.linkRequired = false;
         this.router.navigate(['/dashboard']);
       },
       error: err => {
         console.error('Linking failed', err);
-        this.linkErrorMessage = err?.error?.detail || 'Nie udało się połączyć kont';
+        this.linkErrorMessage = err?.error?.detail || 'An error occurred while linking your account';
       }
     });
   }

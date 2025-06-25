@@ -9,24 +9,22 @@ import {HttpClient} from '@angular/common/http';
   styleUrl: './user-panel-demo.component.css'
 })
 export class UserPanelDemoComponent implements OnInit {
-  userData: String='';
+  userData: String = '';
+
   constructor(private http: HttpClient) {
   }
 
- ngOnInit(): void {
-    this.http.get<{ userData: String }>('http://localhost:8080/api/v1/me', { withCredentials: true }).subscribe({
+  ngOnInit(): void {
+    this.http.get<{ email: String }>('http://localhost:8080/api/v1/me', {withCredentials: true}).subscribe({
       next: (response) => {
-        this.userData = response.userData
-        console.log('User data:', this.userData);
-        console.log('User data fetched successfully', response);
+        this.userData = response.email
       },
       error: (err) => {
         console.error('Error fetching user data', err);
-        alert('Failed to fetch user data. Please try again.');
       }
     });
 
-}
+  }
 
 
 }
